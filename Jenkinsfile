@@ -11,13 +11,13 @@ pipeline{
 
     environment {
         // Definir las variables de entorno
-        registry = 'mmartinbru/m17-cicd-lanzadados' 
+        registry            = 'mmartinbru/m17-cicd-lanzadados' 
         //las credenciales que va a usar jenkins de ese registry que serán necesarias para poder subir la imagen a DockerHub
         registriCredentials = 'dockerhub'   // credenciales de DockerHub en Jenkins
-        project ="M17-CICD-jenkins" // Nombre del proyecto en Jenkins
-        projectVersion= '1.0' // Versión del proyecto
-        repository = "https://github.com/marbruma/M17-lanza-dados.git"
-        repositoryCredentials="github" // Credenciales de GitHub en Jenkins
+        project             = "M17-CICD-jenkins" // Nombre del proyecto en Jenkins
+        projectVersion      = '1.0' // Versión del proyecto
+        repository          = "https://github.com/marbruma/M17-lanza-dados.git"
+        repositoryCredentials= "github" // Credenciales de GitHub en Jenkins
       
     }
 
@@ -33,7 +33,7 @@ pipeline{
         stage('Checkout code') {
             steps {
                 script {
-                    git  branch  'main' ,
+                    git branch: 'main' ,
                             credentialsId: repositoryCredentials, 
                             url: repository
                 }
