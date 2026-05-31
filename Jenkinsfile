@@ -56,10 +56,10 @@ pipeline{
                 script {
                     try {
                         // Arrancamos el contenedor para verificar que no da fallos de sintaxis o importación
-                        sh 'docker run --name $project -e $registry' 
+                        sh "docker run --name $project $registry"
                     } finally {
                         // El bloque 'finally' asegura que el contenedor se borre SIEMPRE, pase o falle el test
-                        sh 'docker rm $project'
+                        sh "docker rm $project"
                     }
                 }
             }
@@ -77,15 +77,16 @@ pipeline{
                 }
             }
         }
-        stage ('Cleaning up'){
+        stage ('Cleaning up') {
             steps {
                 script {
                     // Limpiar la imagen local del servidor Jenkins 
-                    sh 'docker rmi $registry'
+                    sh "docker rmi $registry"
                 }
+            }
         }
    
-    }
+    } // <- Faltaba esta llave para cerrar el bloque 'stages'
 
     
 
@@ -98,9 +99,6 @@ pipeline{
         }
         always {
             echo  'Registrar Build'
-            // Buena práctica: Limpiar la imagen local del servidor Jenkins para no agotar el disco
-            //sh "docker rmi ${IMAGE_NAME}:${BUILD_NUMBER} || true"
         }
     }
-}
 }
